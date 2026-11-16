@@ -463,7 +463,7 @@ npm test
 > New payment methods (e.g. Stripe, NetBanking) can be added without modifying the core `BookingService`.
 
 ### Q4: How is Dependency Injection (DI) implemented without external frameworks?
-> **Answer**: We utilize pure **Constructor Injection** wired inside `server/src/app.js` (the Composition Root). Repositories are instantiated first, injected into domain services, and domain services are injected into controllers. This satisfies the **Dependency Inversion Principle (DIP)**: high-level services depend on abstract contracts and injected dependencies rather than hardcoding concrete implementations.
+> **Answer**: We implement Dependency Injection manually using Constructor Injection, without relying on any external DI frameworks. We manage the dependency setup in server/src/app.js, which acts as the Composition Root. First, Repository instances are created to handle database operations. These repositories are then injected into Service classes through their constructors, and finally, Service instances are injected into Controllers. This ensures that classes don't create their own dependencies but receive them from outside. This follows the Dependency Inversion Principle (DIP) because higher-level modules depend on abstractions rather than directly depending on concrete implementations. It also makes our code loosely coupled, easier to test, and easier to maintain.
 
 ---
 
