@@ -5,6 +5,8 @@
 [![Stack](https://img.shields.io/badge/Stack-MERN%20(React%2C%20Node%2C%20Express%2C%20MongoDB)-orange.svg)]()
 [![License](https://img.shields.io/badge/License-MIT-purple.svg)]()
 
+> Repository note: This project is prepared for capstone evaluation, local setup, and live demonstration of clean architectural design principles.
+
 > **College Capstone System Design & Object-Oriented Software Engineering Evaluation**  
 > An enterprise-grade, clean-architecture movie ticket booking application developed with the MERN stack. Built strictly according to **Object-Oriented Programming (OOP) Pillars**, **SOLID Design Principles**, and **Key System Design Patterns**, featuring **database-level concurrency locking** to eliminate double-booking race conditions.
 
