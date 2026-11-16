@@ -247,6 +247,7 @@ export default function AdminSnacks() {
         )}
 
       </div>
+      </div>
     </div>
   );
 }

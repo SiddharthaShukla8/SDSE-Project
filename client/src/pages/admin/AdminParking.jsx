@@ -296,6 +296,7 @@ export default function AdminParking() {
         )}
 
       </div>
+      </div>
     </div>
   );
 }

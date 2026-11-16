@@ -307,6 +307,7 @@ export default function AdminAnalytics() {
         <RevenueCharts movieStats={data.movieStats} theatreStats={data.theatreStats} />
 
       </div>
+      </div>
     </div>
   );
 }

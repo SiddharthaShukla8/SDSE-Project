@@ -405,6 +405,7 @@ export default function AdminIoTConsole() {
         </div>
 
       </div>
+      </div>
     </div>
   );
 }

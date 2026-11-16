@@ -187,6 +187,10 @@ function AddOns() {
     setTimeout(() => setCouponMsg({ text: "", type: "" }), 2000);
   };
 
+  const [paymentMethod, setPaymentMethod] = useState("UPI");
+  const [upiId, setUpiId] = useState("user@okaxis");
+  const [cardNumber, setCardNumber] = useState("4111-2222-3333-4242");
+
   /* Confirm Booking */
   const confirmBooking = async () => {
     try {
@@ -194,6 +198,8 @@ function AddOns() {
         showId,
         seats: selectedSeats,
         userId,
+        paymentMethod,
+        paymentDetails: paymentMethod === "UPI" ? { upiId } : { cardNumber },
         snacks: selectedSnacks,
         parking: selectedParking,
         totalPrice: finalTotal,
@@ -201,7 +207,8 @@ function AddOns() {
       navigate("/my-bookings");
     } catch (err) {
       console.error("Booking failed", err);
-      alert("Booking failed");
+      const msg = err.response?.data?.message || "Booking failed";
+      alert(msg);
     }
   };
 
@@ -211,12 +218,15 @@ function AddOns() {
         showId,
         seats: selectedSeats,
         userId,
+        paymentMethod,
+        paymentDetails: paymentMethod === "UPI" ? { upiId } : { cardNumber },
         totalPrice: finalTotal,
       });
       navigate("/my-bookings");
     } catch (err) {
       console.error("Booking failed", err);
-      alert("Booking failed");
+      const msg = err.response?.data?.message || "Booking failed";
+      alert(msg);
     }
   };
 
@@ -421,6 +431,76 @@ function AddOns() {
                   🏷️ <span className="font-bold">{c.code}</span>
                 </button>
               ))}
+            </div>
+          )}
+        </div>
+
+        {/* 💳 PAYMENT METHOD (Strategy Pattern Demonstration) */}
+        <div className="bg-gray-950 p-5 rounded-2xl border border-gray-800 space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
+              💳 Select Payment Method
+            </h2>
+            <span className="text-[10px] font-mono bg-purple-900/50 text-purple-300 border border-purple-700/50 px-2 py-0.5 rounded">
+              OOP Strategy Pattern
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => setPaymentMethod("UPI")}
+              className={`p-3.5 rounded-xl border text-left transition flex items-center justify-between ${
+                paymentMethod === "UPI"
+                  ? "bg-red-600/10 border-red-500 text-white shadow-md shadow-red-950/40"
+                  : "bg-gray-900/60 border-gray-800 text-gray-400 hover:text-white"
+              }`}
+            >
+              <div>
+                <p className="text-xs font-bold">⚡ Instant UPI</p>
+                <p className="text-[10px] text-gray-400">GPay, PhonePe, Paytm</p>
+              </div>
+              {paymentMethod === "UPI" && <span className="text-red-500 text-xs">●</span>}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setPaymentMethod("CARD")}
+              className={`p-3.5 rounded-xl border text-left transition flex items-center justify-between ${
+                paymentMethod === "CARD"
+                  ? "bg-red-600/10 border-red-500 text-white shadow-md shadow-red-950/40"
+                  : "bg-gray-900/60 border-gray-800 text-gray-400 hover:text-white"
+              }`}
+            >
+              <div>
+                <p className="text-xs font-bold">💳 Credit / Debit Card</p>
+                <p className="text-[10px] text-gray-400">Visa, Mastercard, RuPay</p>
+              </div>
+              {paymentMethod === "CARD" && <span className="text-red-500 text-xs">●</span>}
+            </button>
+          </div>
+
+          {paymentMethod === "UPI" ? (
+            <div>
+              <label className="text-[11px] text-gray-400 block mb-1">Virtual Payment Address (VPA / UPI ID)</label>
+              <input
+                type="text"
+                value={upiId}
+                onChange={(e) => setUpiId(e.target.value)}
+                placeholder="name@okaxis"
+                className="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500 font-mono"
+              />
+            </div>
+          ) : (
+            <div>
+              <label className="text-[11px] text-gray-400 block mb-1">Card Number (Simulated)</label>
+              <input
+                type="text"
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+                placeholder="•••• •••• •••• 4242"
+                className="w-full bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-red-500 font-mono"
+              />
             </div>
           )}
         </div>
